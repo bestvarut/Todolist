@@ -149,15 +149,31 @@ router.put('/:id', auth, async (req, res) => {
     res.json(todolist);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error PUT');
+    res.status(500).send('Server Error');
   }
 });
 
 // @route   DELETE api/contacts/:id
 // @desc    Delete todolist
 // @access  Private
-router.delete('/:id', (req, res) => {
-  res.send('Delete contacts');
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    let todolist = await Todolist.findById(req.params.id);
+
+    if (!todolist) return res.status(404).json({ msg: 'Todolist not found' });
+
+    //Make sure user owns todolist
+    if (todolist.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'Dont have permission' });
+    }
+
+    await Todolist.findByIdAndDelete(req.params.id);
+
+    res.json({ msg: 'Todolist removed' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
 });
 
 module.exports = router;
