@@ -131,9 +131,25 @@ router.put('/:id', auth, async (req, res) => {
   if (fav) todolistFields.fav = fav;
 
   try {
+    let todolist = await Todolist.findById(req.params.id);
+
+    if (!todolist) return res.status(404).json({ msg: 'Todolist not found' });
+
+    //Make sure user owns todolist
+    if (todolist.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'Dont have permission' });
+    }
+
+    todolist = await Todolist.findByIdAndUpdate(
+      req.params.id,
+      { $set: todolistFields },
+      { new: true }
+    );
+
+    res.json(todolist);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send('Server Error PUT');
   }
 });
 
