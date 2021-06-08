@@ -54,9 +54,7 @@ const TodolistForm = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <h2 className='text-primary'>
-        {current ? 'Edit Todolist' : 'Add Todolist'}
-      </h2>
+      <h2 className=''>{current ? 'Edit Todolist' : 'Add Todolist'}</h2>
       <input
         type='text'
         placeholder='Name'

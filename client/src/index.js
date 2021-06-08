@@ -1,5 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-
-ReactDOM.render(<App />, document.getElementById('root'));
+import ThemeState from './context/theme/ThemeState';
+ReactDOM.render(
+  <ThemeState>
+    <App />
+  </ThemeState>,
+  document.getElementById('root')
+);
