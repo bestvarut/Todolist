@@ -13,6 +13,14 @@ const TodolistSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  done: {
+    type: Boolean,
+    default: false,
+  },
+  fav: {
+    type: Boolean,
+    default: false,
+  },
   date: {
     type: Date,
     default: Date.now,
