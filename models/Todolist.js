@@ -13,13 +13,13 @@ const TodolistSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  done: {
-    type: Boolean,
-    default: false,
+  progress: {
+    type: String,
+    default: 'Undone',
   },
   fav: {
-    type: Boolean,
-    default: false,
+    type: String,
+    default: 'false',
   },
   date: {
     type: Date,

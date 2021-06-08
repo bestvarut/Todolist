@@ -28,7 +28,7 @@ router.get('/fav', auth, async (req, res) => {
   try {
     const todolists = await Todolist.find({
       user: req.user.id,
-      fav: true,
+      fav: 'true',
     }).sort({
       date: -1,
     });
@@ -46,7 +46,7 @@ router.get('/done', auth, async (req, res) => {
   try {
     const todolists = await Todolist.find({
       user: req.user.id,
-      done: true,
+      progress: 'Done',
     }).sort({
       date: -1,
     });
@@ -64,7 +64,7 @@ router.get('/undone', auth, async (req, res) => {
   try {
     const todolists = await Todolist.find({
       user: req.user.id,
-      done: false,
+      progress: 'Undone',
     }).sort({
       date: -1,
     });
@@ -97,12 +97,12 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, info, done, fav } = req.body;
+    const { name, info, progress, fav } = req.body;
     try {
       const newTodolist = new Todolist({
         name,
         info,
-        done,
+        progress,
         fav,
         user: req.user.id,
       });
@@ -121,13 +121,13 @@ router.post(
 // @desc    Update todolist
 // @access  Private
 router.put('/:id', auth, async (req, res) => {
-  const { name, info, done, fav } = req.body;
+  const { name, info, progress, fav } = req.body;
 
   //Build todolist object
   const todolistFields = {};
   if (name) todolistFields.name = name;
   if (info) todolistFields.info = info;
-  if (done) todolistFields.done = done;
+  if (progress) todolistFields.progress = progress;
   if (fav) todolistFields.fav = fav;
 
   try {
