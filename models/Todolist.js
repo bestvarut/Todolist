@@ -25,6 +25,10 @@ const TodolistSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  datestring: {
+    type: String,
+    default: null,
+  },
 });
 
 module.exports = mongoose.model('todolist', TodolistSchema);

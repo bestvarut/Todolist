@@ -10,6 +10,8 @@ const TodolistForm = () => {
     clearCurrent,
     updateTodolist,
     clearFilter,
+    getTodolist,
+    clearTodolist,
   } = todolistContext;
 
   useEffect(() => {
@@ -32,7 +34,7 @@ const TodolistForm = () => {
     fav: 'false',
   });
 
-  const { name, info, progress, fav } = todolist;
+  const { name, info, progress, fav, datestring } = todolist;
 
   const onChange = e =>
     setTodolist({ ...todolist, [e.target.name]: e.target.value });
@@ -46,6 +48,7 @@ const TodolistForm = () => {
     }
     clearAll();
     clearFilter();
+    getTodolist();
   };
 
   const clearAll = () => {
@@ -61,6 +64,7 @@ const TodolistForm = () => {
         name='name'
         value={name}
         onChange={onChange}
+        required
       />
       <input
         type='text'
@@ -68,6 +72,7 @@ const TodolistForm = () => {
         name='info'
         value={info}
         onChange={onChange}
+        required
       />
       <h5>Progress</h5>
       <input

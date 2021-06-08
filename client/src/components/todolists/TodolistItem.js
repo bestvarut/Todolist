@@ -6,10 +6,10 @@ const TodolistItem = ({ todolist }) => {
   const todolistContext = useContext(TodolistContext);
   const { deleteTodolist, setCurrent, clearCurrent } = todolistContext;
 
-  const { id, name, info, progress, fav } = todolist;
+  const { _id, name, info, progress, fav, datestring } = todolist;
 
   const onDelete = () => {
-    deleteTodolist(id);
+    deleteTodolist(_id);
     clearCurrent();
   };
   return (
@@ -28,6 +28,7 @@ const TodolistItem = ({ todolist }) => {
       </h3>
       <ul className='list'>
         <li>{info}</li>
+        <li className=''>Create date : {datestring}</li>
       </ul>
       <p>
         <button

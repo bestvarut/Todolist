@@ -1,3 +1,6 @@
+export const GET_TODOLISTS = 'GET_TODOLISTS';
+export const CLEAR_TODOLISTS = 'CLEAR_TODOLISTS';
+
 export const ADD_TODOLIST = 'ADD_TODOLIST';
 export const DELETE_TODOLIST = 'DELETE_TODOLIST';
 export const SET_CURRENT = 'SET_CURRENT';
@@ -5,6 +8,8 @@ export const CLEAR_CURRENT = 'CLEAR_CURRENT';
 export const UPDATE_TODOLIST = 'UPDATE_TODOLIST';
 export const FILTER_TODOLISTS = 'FILTER_TODOLISTS';
 export const CLEAR_FILTER = 'CLEAR_FILTER';
+export const TODOLIST_ERROR = 'TODOLIST_ERROR';
+
 export const SET_ALERT = 'SET_ALERT';
 export const REMOVE_ALERT = 'REMOVE_ALERT';
 

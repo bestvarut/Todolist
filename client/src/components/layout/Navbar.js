@@ -3,12 +3,17 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../context/auth/authContext';
 import ThemeContext from '../../context/theme/themeContext';
+import TodolistContext from '../../context/todolist/todolistContext';
 
 export const Navbar = ({ title }) => {
   const authContext = useContext(AuthContext);
   const themeContext = useContext(ThemeContext);
+  const todolistContext = useContext(TodolistContext);
+
   const { isAuthenticated, logout, user } = authContext;
   const { dark, theme, toggleTheme } = themeContext;
+  const { clearTodolist } = todolistContext;
+
   const linkStyle = {
     color: theme.color,
     backgroundColor: theme.backgroundColor,
@@ -18,6 +23,7 @@ export const Navbar = ({ title }) => {
   };
   const onLogout = () => {
     logout();
+    clearTodolist();
   };
 
   const authLinks = (

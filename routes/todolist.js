@@ -12,7 +12,11 @@ const Todolist = require('../models/Todolist');
 router.get('/', auth, async (req, res) => {
   try {
     const todolists = await Todolist.find({ user: req.user.id }).sort({
+      fav: -1,
       date: -1,
+    });
+    todolists.forEach(e => {
+      e.datestring = e.date.toDateString();
     });
     res.json(todolists);
   } catch (err) {
@@ -75,7 +79,7 @@ router.get('/undone', auth, async (req, res) => {
   }
 });
 
-// @route   POST api/contacts
+// @route   POST api/todolists
 // @desc    Add new todolist
 // @access  Private
 router.post(
@@ -117,11 +121,11 @@ router.post(
   }
 );
 
-// @route   PUT api/contacts/:id
+// @route   PUT api/todolists/:id
 // @desc    Update todolist
 // @access  Private
 router.put('/:id', auth, async (req, res) => {
-  const { name, info, progress, fav } = req.body;
+  const { name, info, progress, fav, datestring } = req.body;
 
   //Build todolist object
   const todolistFields = {};
@@ -129,6 +133,7 @@ router.put('/:id', auth, async (req, res) => {
   if (info) todolistFields.info = info;
   if (progress) todolistFields.progress = progress;
   if (fav) todolistFields.fav = fav;
+  if (datestring) todolistFields.datestring = datestring;
 
   try {
     let todolist = await Todolist.findById(req.params.id);
@@ -153,7 +158,7 @@ router.put('/:id', auth, async (req, res) => {
   }
 });
 
-// @route   DELETE api/contacts/:id
+// @route   DELETE api/todolists/:id
 // @desc    Delete todolist
 // @access  Private
 router.delete('/:id', auth, async (req, res) => {

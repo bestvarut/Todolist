@@ -1,4 +1,6 @@
 import {
+  GET_TODOLISTS,
+  CLEAR_TODOLISTS,
   ADD_TODOLIST,
   DELETE_TODOLIST,
   SET_CURRENT,
@@ -6,28 +8,46 @@ import {
   UPDATE_TODOLIST,
   FILTER_TODOLISTS,
   CLEAR_FILTER,
+  TODOLIST_ERROR,
 } from '../types';
 
 export default (state, action) => {
   switch (action.type) {
+    case GET_TODOLISTS:
+      return {
+        ...state,
+        todolists: action.payload,
+        loading: false,
+      };
     case ADD_TODOLIST:
       return {
         ...state,
-        todolists: [...state.todolists, action.payload],
+        todolists: [action.payload, ...state.todolists],
+        loading: false,
       };
     case DELETE_TODOLIST:
       return {
         ...state,
         todolists: state.todolists.filter(
-          todolist => todolist.id !== action.payload
+          todolist => todolist._id !== action.payload
         ),
+        loading: false,
+      };
+    case CLEAR_TODOLISTS:
+      return {
+        ...state,
+        todolists: null,
+        filtered: null,
+        error: null,
+        current: null,
       };
     case UPDATE_TODOLIST:
       return {
         ...state,
         todolists: state.todolists.map(todolist =>
-          todolist.id === action.payload.id ? action.payload : todolist
+          todolist._id === action.payload._id ? action.payload : todolist
         ),
+        loading: false,
       };
     case SET_CURRENT:
       return {
@@ -51,6 +71,11 @@ export default (state, action) => {
       return {
         ...state,
         filtered: null,
+      };
+    case TODOLIST_ERROR:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;
