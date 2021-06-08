@@ -1,6 +1,7 @@
 import React from 'react';
 import Todolists from '../todolists/Todolists';
 import TodolistForm from '../todolists/TodolistForm';
+import TodolistFilter from '../todolists/TodolistFilter';
 
 const Home = () => {
   return (
@@ -9,6 +10,7 @@ const Home = () => {
         <TodolistForm />
       </div>
       <div>
+        <TodolistFilter />
         <Todolists />
       </div>
     </div>

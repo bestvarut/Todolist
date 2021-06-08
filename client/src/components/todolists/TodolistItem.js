@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import TodolistContext from '../../context/todolist/todolistContext';
 
 const TodolistItem = ({ todolist }) => {
+  const todolistContext = useContext(TodolistContext);
+  const { deleteTodolist, setCurrent, clearCurrent } = todolistContext;
+
   const { id, name, info, progress, fav } = todolist;
+
+  const onDelete = () => {
+    deleteTodolist(id);
+    clearCurrent();
+  };
   return (
     <div className='card bg-light'>
       <h3 className='text-primary text-left'>
@@ -21,8 +30,15 @@ const TodolistItem = ({ todolist }) => {
         <li>{info}</li>
       </ul>
       <p>
-        <button className='btn btn-dark btn-sm'>Edit</button>
-        <button className='btn btn-danger btn-sm'>Delete</button>
+        <button
+          className='btn btn-dark btn-sm'
+          onClick={() => setCurrent(todolist)}
+        >
+          Edit
+        </button>
+        <button className='btn btn-danger btn-sm' onClick={onDelete}>
+          Delete
+        </button>
       </p>
     </div>
   );

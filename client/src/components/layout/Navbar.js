@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-export const Navbar = ({ title, icon }) => {
+export const Navbar = ({ title }) => {
+  const onClick = () => {};
+
   return (
     <div className='navbar bg-primary'>
       <h1>{title}</h1>
@@ -13,6 +15,16 @@ export const Navbar = ({ title, icon }) => {
         <li>
           <Link to='/about'>About</Link>
         </li>
+        <li>
+          <Link to='/register'>Register</Link>
+        </li>
+        <li>
+          <Link to='/login'>Login</Link>
+        </li>
+
+        <button onClick={onClick} className=' btn-light '>
+          Change theme
+        </button>
       </ul>
     </div>
   );
@@ -20,7 +32,6 @@ export const Navbar = ({ title, icon }) => {
 
 Navbar.propTypes = {
   title: PropTypes.string.isRequired,
-  icon: PropTypes.string,
 };
 
 Navbar.defaultProps = {

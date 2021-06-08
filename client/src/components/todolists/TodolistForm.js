@@ -1,8 +1,29 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import TodolistContext from '../../context/todolist/todolistContext';
 
 const TodolistForm = () => {
   const todolistContext = useContext(TodolistContext);
+
+  const {
+    addTodolist,
+    current,
+    clearCurrent,
+    updateTodolist,
+    clearFilter,
+  } = todolistContext;
+
+  useEffect(() => {
+    if (current !== null) {
+      setTodolist(current);
+    } else {
+      setTodolist({
+        name: '',
+        info: '',
+        progress: 'Undone',
+        fav: 'false',
+      });
+    }
+  }, [todolistContext, current]);
 
   const [todolist, setTodolist] = useState({
     name: '',
@@ -18,18 +39,24 @@ const TodolistForm = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    todolistContext.addTodolist(todolist);
-    setTodolist({
-      name: '',
-      info: '',
-      progress: 'Undone',
-      fav: 'false',
-    });
+    if (current === null) {
+      addTodolist(todolist);
+    } else {
+      updateTodolist(todolist);
+    }
+    clearAll();
+    clearFilter();
+  };
+
+  const clearAll = () => {
+    clearCurrent();
   };
 
   return (
     <form onSubmit={onSubmit}>
-      <h2 className='text-primary'>Add Todolist</h2>
+      <h2 className='text-primary'>
+        {current ? 'Edit Todolist' : 'Add Todolist'}
+      </h2>
       <input
         type='text'
         placeholder='Name'
@@ -81,10 +108,17 @@ const TodolistForm = () => {
       <div>
         <input
           type='submit'
-          value='Add Todolist'
+          value={current ? 'Update Todolist' : 'Add Todolist'}
           className='btn btn-primary btn-block'
         />
       </div>
+      {current && (
+        <div>
+          <button className='btn btn-light btn-block' onClick={clearAll}>
+            Clear
+          </button>
+        </div>
+      )}
     </form>
   );
 };

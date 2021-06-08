@@ -9,7 +9,7 @@ import {
   CLEAR_CURRENT,
   UPDATE_TODOLIST,
   FILTER_TODOLISTS,
-  CLEAR_TODOLIST,
+  CLEAR_FILTER,
 } from '../types';
 
 const TodolistState = props => {
@@ -37,6 +37,8 @@ const TodolistState = props => {
         fav: 'false',
       },
     ],
+    current: null,
+    filtered: null,
   };
 
   const [state, dispatch] = useReducer(todolistReducer, initialState);
@@ -47,22 +49,43 @@ const TodolistState = props => {
     dispatch({ type: ADD_TODOLIST, payload: todolist });
   };
   // Delete todolist
-
+  const deleteTodolist = id => {
+    dispatch({ type: DELETE_TODOLIST, payload: id });
+  };
   // Set Currnet todolist
-
+  const setCurrent = todolist => {
+    dispatch({ type: SET_CURRENT, payload: todolist });
+  };
   // Clear Current todolist
-
+  const clearCurrent = () => {
+    dispatch({ type: CLEAR_CURRENT });
+  };
   // Update todolist
-
+  const updateTodolist = todolist => {
+    dispatch({ type: UPDATE_TODOLIST, payload: todolist });
+  };
   //Filter todolist
-
+  const filterTodolists = text => {
+    dispatch({ type: FILTER_TODOLISTS, payload: text });
+  };
   //Clear Filter
+  const clearFilter = () => {
+    dispatch({ type: CLEAR_FILTER });
+  };
 
   return (
     <TodolistContext.Provider
       value={{
         todolists: state.todolists,
+        current: state.current,
+        filtered: state.filtered,
         addTodolist,
+        deleteTodolist,
+        setCurrent,
+        clearCurrent,
+        updateTodolist,
+        filterTodolists,
+        clearFilter,
       }}
     >
       {props.children}
