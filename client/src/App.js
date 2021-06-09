@@ -15,7 +15,7 @@ import './App.css';
 
 const App = () => {
   const themeContext = useContext(ThemeContext);
-  const { dark, theme, toggleTheme } = themeContext;
+  const { theme } = themeContext;
 
   useEffect(() => {
     document.body.style.backgroundColor = theme.backgroundColor;

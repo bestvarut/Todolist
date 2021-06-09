@@ -11,7 +11,6 @@ const TodolistForm = () => {
     updateTodolist,
     clearFilter,
     getTodolist,
-    clearTodolist,
   } = todolistContext;
 
   useEffect(() => {
@@ -23,6 +22,8 @@ const TodolistForm = () => {
         info: '',
         progress: 'Undone',
         fav: 'false',
+        datestring: '',
+        duedate: '',
       });
     }
   }, [todolistContext, current]);
@@ -32,9 +33,11 @@ const TodolistForm = () => {
     info: '',
     progress: 'Undone',
     fav: 'false',
+    datestring: '',
+    duedate: '',
   });
 
-  const { name, info, progress, fav, datestring } = todolist;
+  const { name, info, progress, fav, datestring, duedate } = todolist;
 
   const onChange = e =>
     setTodolist({ ...todolist, [e.target.name]: e.target.value });
@@ -74,6 +77,8 @@ const TodolistForm = () => {
         onChange={onChange}
         required
       />
+      <h5>Due date</h5>
+      <input type='date' value={duedate} name='duedate' onChange={onChange} />
       <h5>Progress</h5>
       <input
         type='radio'

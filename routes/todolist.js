@@ -13,11 +13,12 @@ router.get('/', auth, async (req, res) => {
   try {
     const todolists = await Todolist.find({ user: req.user.id }).sort({
       fav: -1,
-      date: -1,
+      duedate: -1,
     });
-    todolists.forEach(e => {
-      e.datestring = e.date.toDateString();
-    });
+    // todolists.forEach(e => {
+    //   if (e.duedate !== null)
+    //     e.datestring = e.duedate.toISOString().slice(0, 10);
+    // });
     res.json(todolists);
   } catch (err) {
     console.error(err.message);
@@ -101,13 +102,14 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, info, progress, fav } = req.body;
+    const { name, info, progress, fav, duedate } = req.body;
     try {
       const newTodolist = new Todolist({
         name,
         info,
         progress,
         fav,
+        duedate,
         user: req.user.id,
       });
 
@@ -125,7 +127,7 @@ router.post(
 // @desc    Update todolist
 // @access  Private
 router.put('/:id', auth, async (req, res) => {
-  const { name, info, progress, fav, datestring } = req.body;
+  const { name, info, progress, fav, datestring, duedate } = req.body;
 
   //Build todolist object
   const todolistFields = {};
@@ -134,6 +136,7 @@ router.put('/:id', auth, async (req, res) => {
   if (progress) todolistFields.progress = progress;
   if (fav) todolistFields.fav = fav;
   if (datestring) todolistFields.datestring = datestring;
+  if (duedate) todolistFields.duedate = duedate;
 
   try {
     let todolist = await Todolist.findById(req.params.id);

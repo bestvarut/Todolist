@@ -25,9 +25,13 @@ const TodolistSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  datestring: {
+  duedate: {
     type: String,
     default: null,
+  },
+  datestring: {
+    type: String,
+    default: '',
   },
 });
 
