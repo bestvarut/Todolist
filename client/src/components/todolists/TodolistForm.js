@@ -61,6 +61,9 @@ const TodolistForm = () => {
   return (
     <form onSubmit={onSubmit}>
       <h2 className=''>{current ? 'Edit Todolist' : 'Add Todolist'}</h2>
+      <h5>
+        Task name <i className='text-danger'>*</i>{' '}
+      </h5>
       <input
         type='text'
         placeholder='Name'
@@ -69,6 +72,9 @@ const TodolistForm = () => {
         onChange={onChange}
         required
       />
+      <h5>
+        Task info <i className='text-danger'>*</i>
+      </h5>
       <input
         type='text'
         placeholder='Info'
@@ -79,8 +85,9 @@ const TodolistForm = () => {
       />
       <h5>Due date</h5>
       <input type='date' value={duedate} name='duedate' onChange={onChange} />
-      <h5>Progress</h5>
+      <h5 style={{ margin: '1rem 0 0.2rem 0' }}>Progress</h5>
       <input
+        style={{ margin: '0 0.2rem 1.5rem 0' }}
         type='radio'
         name='progress'
         value='Undone'
@@ -89,6 +96,7 @@ const TodolistForm = () => {
       />{' '}
       Undone{' '}
       <input
+        style={{ margin: '0 0.2rem 1.5rem 2rem' }}
         type='radio'
         name='progress'
         value='Done'
@@ -96,8 +104,9 @@ const TodolistForm = () => {
         onChange={onChange}
       />{' '}
       Done
-      <h5>Favorite</h5>
+      <h5 style={{ margin: '0 0 0.2rem 0' }}>Favorite</h5>
       <input
+        style={{ margin: '0 0.2rem 1.5rem 0' }}
         type='radio'
         name='fav'
         value='true'
@@ -106,6 +115,7 @@ const TodolistForm = () => {
       />{' '}
       Yes{' '}
       <input
+        style={{ margin: '0 0.2rem 1.5rem 3.75rem' }}
         type='radio'
         name='fav'
         value='false'
