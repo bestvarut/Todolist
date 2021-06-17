@@ -53,6 +53,7 @@ const TodolistItem = ({ todolist }) => {
     clearCurrent();
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     if (todotask) {
       await updateTodolist(todotask);

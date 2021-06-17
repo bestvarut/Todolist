@@ -37,7 +37,7 @@ const TodolistForm = () => {
     duedate: '',
   });
 
-  const { name, info, progress, fav, datestring, duedate } = todolist;
+  const { name, info, progress, fav, duedate } = todolist;
 
   const onChange = e =>
     setTodolist({ ...todolist, [e.target.name]: e.target.value });
